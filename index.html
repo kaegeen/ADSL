@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Internet Usage Tracker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer>
+        function calculateUsage() {
+            const dailyUsage = document.getElementById('dailyUsage').value.trim();
+            if (!dailyUsage) {
+                alert('Please enter your daily usage data.');
+                return;
+            }
+
+            const usageArray = dailyUsage.split(',').map(day => parseFloat(day.trim()));
+
+            if (usageArray.some(isNaN)) {
+                alert('Invalid input. Please enter data usage in GB separated by commas.');
+                return;
+            }
+
+            const totalUsage = usageArray.reduce((total, usage) => total + usage, 0);
+            const resultElement = document.getElementById('result');
+            resultElement.textContent = `You have used a total of ${totalUsage.toFixed(2)} GB of internet.`;
+            resultElement.className = 'text-green-600 font-bold mt-4';
+        }
+    </script>
+</head>
+<body class="bg-gray-100">
+    <!-- Navigation Bar -->
+    <nav class="bg-blue-500 p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-white text-2xl font-bold">Internet Usage Tracker</h1>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <section class="py-16">
+        <div class="container mx-auto px-4">
+            <h2 class="text-2xl font-bold text-center mb-8">Track Your Internet Usage</h2>
+            <div class="max-w-lg mx-auto bg-white shadow-lg rounded-lg p-8">
+                <div class="mb-4">
+                    <label for="dailyUsage" class="block text-gray-700 font-bold mb-2">Daily Usage (in GB)</label>
+                    <input type="text" id="dailyUsage" class="w-full p-3 border rounded-lg" placeholder="Enter daily usage separated by commas (e.g., 1.5, 2.3, 0.75)">
+                </div>
+                <button 
+                    onclick="calculateUsage()"
+                    class="w-full px-4 py-2 bg-blue-500 text-white font-bold rounded-lg hover:bg-blue-600">
+                    Calculate Total Usage
+                </button>
+                <p id="result" class="text-center mt-4"></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-blue-500 text-white text-center py-4">
+        <p>&copy; 2025 Internet Usage Tracker. All rights reserved.</p>
+    </footer>
+</body>
+</html>
